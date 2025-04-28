@@ -6,8 +6,9 @@ import { broadcast, listUnspent, getTransaction, getSpentOutput} from './mProvid
 import { hexToLittleEndian, sleep } from "./myUtils";
 
 import { Counter } from "./contracts/counter";
+import { userHomePrivateKey } from './env';
 
-let homepvtKey = "3c2ffdbb0a57c0cff0deacba15a92bf1d218dda9a9c7c668dd0640a6204b6394" 
+let homepvtKey = userHomePrivateKey;
 let homenetwork = bsv.Networks.testnet
 
 
@@ -17,7 +18,6 @@ let Alice: TestWallet
 let signerExt: TestWallet
 
 let txlink2 = ""
-
 function PageSC06CounterFinish() {
 
   const [deployedtxid, setdeptxid] = useState("");
@@ -96,7 +96,7 @@ function PageSC06CounterFinish() {
         const { tx: callTx } = await counter.methods.finish()
     
         //console.log( 'Counter: ', currentInstance.count + 1n)
-        console.log( 'Counter: ', counter.count)
+        console.log( 'Counter: ', counter.count)    
         console.log( 'TXID: ', callTx.id)
   
         //alert('unlock: ' + callTx.id)

@@ -1,10 +1,11 @@
 import React, { useRef, FC, useState} from 'react';
 import './App.css';
 
+import { userHomePrivateKey } from './env';
 import { DefaultProvider, sha256, toHex, PubKey, bsv, TestWallet, Tx, toByteString } from "scrypt-ts";
 import { Counter } from "./contracts/counter";
 
-let homepvtKey = "3c2ffdbb0a57c0cff0deacba15a92bf1d218dda9a9c7c668dd0640a6204b6394" 
+let homepvtKey = userHomePrivateKey;
 let homenetwork = bsv.Networks.testnet
 
 const provider = new DefaultProvider({network: homenetwork});

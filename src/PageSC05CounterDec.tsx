@@ -6,8 +6,9 @@ import { broadcast, listUnspent, getTransaction, getSpentOutput} from './mProvid
 import { hexToLittleEndian, sleep } from "./myUtils";
 
 import { Counter } from "./contracts/counter";
+import { userHomePrivateKey } from './env';
 
-let homepvtKey = "3c2ffdbb0a57c0cff0deacba15a92bf1d218dda9a9c7c668dd0640a6204b6394" 
+let homepvtKey = userHomePrivateKey;
 let homenetwork = bsv.Networks.testnet
 
 const provider = new DefaultProvider({network: homenetwork});
@@ -15,7 +16,7 @@ let Alice: TestWallet
 let signerExt: TestWallet
 
 let txlink2 = ""
-
+let currentCounter: bigint = 0n;
 function PageSC05CounterDec() {
 
   const [deployedtxid, setdeptxid] = useState("");
@@ -104,9 +105,10 @@ function PageSC05CounterDec() {
         } as MethodCallOptions<Counter>) 
   
         //console.log( 'Counter: ', currentInstance.count + 1n)
-        console.log( 'Counter: ', nextInstance.count)
+        currentCounter = nextInstance.count
+        console.log( 'Current counter: ', currentCounter)
+
         console.log( 'TXID: ', callTx.id)
-  
         //alert('unlock: ' + callTx.id)
         
         if(homenetwork === bsv.Networks.mainnet )
@@ -192,6 +194,9 @@ function PageSC05CounterDec() {
             <p className="responsive-label" style={{ fontSize: '12px' }}>TX link: {' '} 
                 <a href={linkUrl} target="_blank" style={{ fontSize: '12px', color: "cyan"}}>
                 {linkUrl}</a></p>
+          </div>
+          <div className="label-container" style={{ fontSize: '12px', paddingBottom: '20px', paddingTop: '0px' }}>
+            <p className="responsive-label" style={{ fontSize: '12px' }}>Current counter: {currentCounter} </p>
           </div>
         </div>
           
